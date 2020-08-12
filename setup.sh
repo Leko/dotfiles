@@ -52,3 +52,14 @@ for item in ${completions[@]}; do
     source "$prefix/$item"
   fi
 done
+
+# Fetch dotfiles
+files=(.bashrc .gitconfig)
+url_prefix=https://raw.githubusercontent.com/Leko/setup-osx/master/roles/dotfiles/files/
+path_prefix=~/.dotfiles
+mkdir $path_prefix
+echo >> ~/.bashrc
+for file in ${files[@]}; do
+  wget $url_prefix/$file -O $path_prefix/$file
+  echo "$path_prefix/$file" >> ~/.bashrc
+done
